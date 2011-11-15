@@ -1,4 +1,3 @@
-#include <arpa/inet.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -11,7 +10,6 @@ int http_read_int(int sock)
    int r = 0;
    while (i<sizeof(buffer)&&!(i>=2&&buffer[i-1]=='\n'&&buffer[i-2]=='\r')&&(r = read(sock, &buffer[i], 1))) { i++; }
    buffer[i] = '\0';
-   printf("chunk '%s'\n", buffer);
    return strtol(buffer, NULL, 16);
 }
 char *http_read_data(int sock, char *header)
@@ -43,19 +41,15 @@ char *http_read_data(int sock, char *header)
       char junk;
       char buffer[0x6e3821];
       int i = 0;
-      printf("******\nchunked\n******\n"); // del
       while (len = http_read_int(sock))
       {
-         printf("reading chunk %d\n", len);
          if (len == -1) return NULL;
          r = 0;
          while (r < len)
          {
             r += read(sock, &buffer[i+r], len - r);
-            printf("read %d\n", r);
          }
          i += r;
-         printf("i %d, r %d\n", i, r);
          read(sock, &junk, 1);
          read(sock, &junk, 1);
       }
@@ -134,7 +128,7 @@ void print_messages(char *data)
       data = strstr(data, "</title>");
       *data = '\0';
       data += 8;
-      printf("\n********\nMessage %d: %s\n", n++, p);
+      printf("msg %d: %s\n", n++, p);
    }
 }
 int main(int argc, char *argv[])
