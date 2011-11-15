@@ -16,8 +16,7 @@ void print_messages(char *o)
    while (p = strstr(o, "<title>"))
    {
       o = strstr(o, "</title>");
-      *o = '\0'; // *o++ = '\0';
-      o += 8;    // -
+      *o++ = '\0';
       printf("msg %d: %s\n", n++, p+7);
    }
 }
@@ -27,8 +26,10 @@ int http_read_int(int sock)
    char t[12];
    int i = 0;
    int r = 0;
-   while (i<12&&!(i>=2&&t[i-1]=='\n'&&t[i-2]=='\r')&&(r = read(sock, &t[i], 1)))
-   { i++; }
+   while (i<12&&!(i>=2&&t[i-1]=='\n'&&t[i-2]=='\r'))
+   {
+      if (read(sock, &t[i++], 1) < 1) return -1;
+   }
    return strtol(t, 0, 16);
 }
 
@@ -49,7 +50,7 @@ int http_get(char *hostname, char *path)
 
    addr.sin_family = AF_INET;
    addr.sin_addr.s_addr = *((unsigned int*)host->h_addr_list[0]);
-   addr.sin_port = htons(80/*7000*/); // 0x5000 // 20480
+   addr.sin_port = 20480;
    if (connect(sock, (struct sockaddr*)&addr, sizeof(addr))) return 1;
 
    sprintf(buffer, "GET %s HTTP/1.1\r\nHost: %s\r\n\r\n", path, hostname);
@@ -58,7 +59,7 @@ int http_get(char *hostname, char *path)
    for (; i < S && !(i>=4&&buffer[i-1]=='\n'&&buffer[i-2]=='\r'&&
            buffer[i-3]=='\n'&&buffer[i-4]=='\r');)
    {
-      read(sock, &buffer[i++], 1);
+      if (read(sock, &buffer[i++], 1) < 1) return 1;
    }
 
    ptr = strstr(buffer, "Content-Length: ");
