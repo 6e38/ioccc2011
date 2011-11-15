@@ -11,8 +11,6 @@ int http_read_int(int sock)
    int r = 0;
    while (i<sizeof(buffer)&&!(i>=2&&buffer[i-1]=='\n'&&buffer[i-2]=='\r')&&(r = read(sock, &buffer[i], 1))) { i++; }
    buffer[i] = '\0';
-   //if (i==0||buffer[i-1]=='\r'||buffer[i-1]=='\n'||buffer[i-1]=='\0') return 0;
-   //if (!isdigit(buffer[0])) { printf("buffer '%s'\n", buffer); return -1; }
    printf("chunk '%s'\n", buffer);
    return strtol(buffer, NULL, 16);
 }
@@ -81,8 +79,6 @@ char *http_read_header(int sock)
    header = malloc(i);
    if (header == NULL) return NULL;
    memcpy(header, buffer, i);
-   fprintf(stdout, header); // del
-   fprintf(stdout, "Data:\n"); // del
    return header;
 }
 char *http_read_response(int sock)
@@ -144,9 +140,6 @@ void print_messages(char *data)
 int main(int argc, char *argv[])
 {
    char *data = NULL;
-   //data = http_get("gaia.rose.hp.com", "/");
-   //data = http_get("thai-dl360.americas.hpqcorp.net", "/"); // chunked
-   //data = http_get("api.twitter.com", "/1/statuses/user_timeline.rss?screen_name=ioccc");
    data = http_get("search.twitter.com", "/search.atom?q=@silhouetteam");
    if (data == NULL) { fprintf(stderr, "err\n"); return 1; }
    print_messages(data);
