@@ -22,6 +22,7 @@ char *http_read_data(int sock, char *header)
    char *ptr = NULL;
    int len = 0;
    int l = 0;
+   int r;
    ptr = strstr(header, "Content-Length: ");
    if (ptr != NULL)
    {
@@ -30,17 +31,21 @@ char *http_read_data(int sock, char *header)
       if (len == 0) return NULL;
       data = malloc(len + 1);
       if (data == NULL) return NULL;
-      l = read(sock, data, len);
+      while (l < len)
+      {
+         r = read(sock, &data[l], len - l);
+         if (r==0) {free(data); return NULL;}
+         l += r;
+      }
       if (l != len) { free(data); return NULL; }
       data[l] = '\0';
    }
    else
    {
       char junk;
-      char buffer[0x6e38];
+      char buffer[0x6e3821];
       int i = 0;
-      int r;
-      printf("chunked\n"); // del
+      printf("******\nchunked\n******\n"); // del
       while (len = http_read_int(sock))
       {
          printf("reading chunk %d\n", len);
@@ -66,7 +71,7 @@ char *http_read_data(int sock, char *header)
 char *http_read_header(int sock)
 {
    char *header = NULL;
-   char buffer[1337];
+   char buffer[0x6e38];
    int i = 0;
    while (i<sizeof(buffer)&&!(i>=4&&buffer[i-1]=='\n'&&buffer[i-2]=='\r'&&buffer[i-3]=='\n'&&buffer[i-4]=='\r'))
    {
@@ -122,13 +127,29 @@ char *http_get(char *hostname, char *path)
    close(sock);
    return data;
 }
+void print_messages(char *data)
+{
+   char buffer[1337];
+   char *p;
+   int n = 0;
+   while(p = strstr(data, "<title>"))
+   {
+      p += 7;
+      data = strstr(data, "</title>");
+      *data = '\0';
+      data += 8;
+      printf("\n********\nMessage %d: %s\n", n++, p);
+   }
+}
 int main(int argc, char *argv[])
 {
    char *data = NULL;
    //data = http_get("gaia.rose.hp.com", "/");
-   data = http_get("thai-dl360.americas.hpqcorp.net", "/"); // chunked
+   //data = http_get("thai-dl360.americas.hpqcorp.net", "/"); // chunked
+   //data = http_get("api.twitter.com", "/1/statuses/user_timeline.rss?screen_name=ioccc");
+   data = http_get("search.twitter.com", "/search.atom?q=@silhouetteam");
    if (data == NULL) { fprintf(stderr, "err\n"); return 1; }
-   fprintf(stdout, data);
+   print_messages(data);
    free(data);
    return 0;
 }
