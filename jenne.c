@@ -3,9 +3,12 @@
 #include <unistd.h>
 #include <netdb.h>
 #include <string.h>
+
 #define S 0x6e3821
+
 char *buffer;
 int sock;
+
 void print_messages(char *o)
 {
    char *p;
@@ -18,6 +21,7 @@ void print_messages(char *o)
       printf("msg %d: %s\n", n++, p+7);
    }
 }
+
 int http_read_int(int sock)
 {
    char t[12];
@@ -27,6 +31,7 @@ int http_read_int(int sock)
    { i++; }
    return strtol(t, 0, 16);
 }
+
 int http_get(char *hostname, char *path)
 {
    struct sockaddr_in addr;
@@ -91,6 +96,7 @@ int http_get(char *hostname, char *path)
 
    return 0;
 }
+
 int main(int argc, char *argv[])
 {
    int r = 1;
@@ -102,8 +108,8 @@ int main(int argc, char *argv[])
    if (sock == 0) goto y;
 
    //http_get("localhost", "/tweet.xml");
-   //if (r = http_get("www.google.com", "/")) goto x;
-   if (r = http_get("search.twitter.com", "/search.atom?q=@ioccc")) goto x;
+   if (r = http_get("www.google.com", "/")) goto x;
+   //if (r = http_get("search.twitter.com", "/search.atom?q=@ioccc")) goto x;
 
    print_messages(buffer);
 
