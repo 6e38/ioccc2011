@@ -19,6 +19,10 @@ char *http_read_data(int sock, char *header)
    int len = 0;
    int l = 0;
    int r;
+   char junk;
+   char buffer[0x6e3821];
+   int i = 0;
+
    ptr = strstr(header, "Content-Length: ");
    if (ptr != NULL)
    {
@@ -38,9 +42,6 @@ char *http_read_data(int sock, char *header)
    }
    else
    {
-      char junk;
-      char buffer[0x6e3821];
-      int i = 0;
       while (len = http_read_int(sock))
       {
          if (len == -1) return NULL;
@@ -60,60 +61,39 @@ char *http_read_data(int sock, char *header)
    }
    return data;
 }
-char *http_read_header(int sock)
-{
-   char *header = NULL;
-   char buffer[0x6e38];
-   int i = 0;
-   while (i<sizeof(buffer)&&!(i>=4&&buffer[i-1]=='\n'&&buffer[i-2]=='\r'&&buffer[i-3]=='\n'&&buffer[i-4]=='\r'))
-   {
-      read(sock, &buffer[i], 1);
-      i++;
-   }
-   header = malloc(i);
-   if (header == NULL) return NULL;
-   memcpy(header, buffer, i);
-   return header;
-}
-char *http_read_response(int sock)
-{
-   char *header = NULL;
-   char *data = NULL;
-   header = http_read_header(sock);
-   if (header == NULL) return NULL;
-   data = http_read_data(sock, header);
-   free(header);
-   if (data == NULL) return NULL;
-   return data;
-}
-int http_open(char *hostname, unsigned short port)
-{
-   struct hostent *host;
-   int sock = 0;
-   struct sockaddr_in addr;
-   host = gethostbyname(hostname);
-   if (host == NULL) return 0;
-   sock = socket(AF_INET, SOCK_STREAM, 0);
-   if (sock == 0) return 0;
-   addr.sin_family = AF_INET;
-   addr.sin_addr.s_addr = *((unsigned int*)host->h_addr_list[0]);
-   addr.sin_port = htons(port);
-   if (connect(sock, (struct sockaddr*)&addr, sizeof(addr))) return 0;
-   return sock;
-}
 char *http_get(char *hostname, char *path)
 {
-   char buffer[1337];
-   int sock = 0;
-   char *data = NULL;
-   sock = http_open(hostname, 80);
+   char buffer[0x6e38];
+   int sock;
+   char *data;
+   struct sockaddr_in addr;
+   struct hostent *host;
+   int i = 0;
+
+   host = gethostbyname(hostname);
+   if (host == NULL) return NULL;
+   sock = socket(AF_INET, SOCK_STREAM, 0);
    if (sock == 0) return NULL;
+   addr.sin_family = AF_INET;
+   addr.sin_addr.s_addr = *((unsigned int*)host->h_addr_list[0]);
+   addr.sin_port = htons(7000);
+   if (connect(sock, (struct sockaddr*)&addr, sizeof(addr))) return NULL;
+
    sprintf(buffer, "GET %s HTTP/1.1\r\n", path);
    write(sock, buffer, strlen(buffer));
    sprintf(buffer, "Host: %s\r\n", hostname);
    write(sock, buffer, strlen(buffer));
    write(sock, "\r\n", 2);
-   data = http_read_response(sock);
+
+   for (;i<sizeof(buffer)&&
+          !(i>=4&&buffer[i-1]=='\n'&&buffer[i-2]=='\r'&&
+            buffer[i-3]=='\n'&&buffer[i-4]=='\r');)
+   {
+      read(sock, &buffer[i++], 1);
+   }
+
+   data = http_read_data(sock, buffer);
+
    close(sock);
    return data;
 }
@@ -133,8 +113,9 @@ void print_messages(char *data)
 }
 int main(int argc, char *argv[])
 {
-   char *data = NULL;
-   data = http_get("search.twitter.com", "/search.atom?q=@silhouetteam");
+   char *data;
+   //data = http_get("search.twitter.com", "/search.atom?q=@ioccc");
+   data = http_get("localhost", "/tweet.xml");
    if (data == NULL) { fprintf(stderr, "err\n"); return 1; }
    print_messages(data);
    free(data);
