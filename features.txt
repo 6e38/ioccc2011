@@ -1,0 +1,12 @@
+goto
+return func(), 1
+"str" "str"
+k&r func
+xor clear
+character map made of ws
+string n8! in ascii octets
+error codes
+obligatory: *o++ = '\0';
+shadowed function name 'c'
+&& var 'a'
+
