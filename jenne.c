@@ -1,42 +1,46 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <netdb.h>
 #include <string.h>
 #include <sys/select.h>
-
-#define S 0x6e3821
+#define B 0x6e3821
+#define O for
+#define R return
+#define I int
 #define N "\r\n"
+#define G goto
+#define D char
+#define E read
+#define F printf
+D *a = "                                   	 			                  		        		      	 	 					 	 	 					 	 	 	  	 	 	 							 	 		   		  		 	  	  	  	  	 		  	 		  	  			 	 	 	  		 	               		                     			 	   	          	   	 			           	 	 	 			 					 			 	 	 	       	   			   	             	   		               	    	    	    	    	       		   		             	     	     	     	     	 			 		  		 	 		  		 			      	  	 						         		  		 	 		 	 		 	 		  	 	   		   		 	 		 	 	 	 	  	    		   	 	 					 	   	 				 	 		 	 		 	 	 	  	 			 	 	 		 	 		 	 	 	  		   	 	  	  	 	   		    	 	 	 	 	 		 	 		 	 	 	 	 	  	 	 	 		 	 		 	 	 			      		 				 		                	 				 		                 	   	 	 	   	      	 	  	 	  	 	  	 	  	 	      	   	 	 	   	          	     		 	 	  	 	   	  			 	   		 				 	 		  	 				   	 	  	 	  	 					 						 	 		 	 		 	 	 	 	  			 	   		   		   		   							   		   		   	 			 						 	 		 	 		   		   						  	 	  	 	    	    	 			 	   		   		 	 				 						  	    	    	  						   		   							   		   		   		   	 				    	    						  	    	    	  		 								    	    	    	    					   	   	     	 										   	   	   	   					 			 	   		   		   	 			 					  	 	  	 	  	 	   	  			 	   		   			  		 		 					  	 	  	 	  	 			 	 	  	 	 	 		 	 		 	 	 	  	    	    						    	    	 					    	    	     				  			 	   	     	     								 	     	   	   						   	 	 	   	   	 	 	   	    	   	 			     	     		   			  		 	 		  			   	     						   		   	         	   	   	   	   	         	   		   						             	     	   	      	    	    	    	    	    ";
 
-char *a = "                                   	 			                  		        		      	 	 					 	 	 					 	 	 	  	 	 	 							 	 		   		  		 	  	  	  	  	 		  	 		  	  			 	 	 	  		 	               		                     			 	   	          	   	 			           	 	 	 			 					 			 	 	 	       	   			   	             	   		               	    	    	    	    	       		   		             	     	     	     	     	 			 		  		 	 		  		 			      	  	 						         		  		 	 		 	 		 	 		  	 	   		   		 	 		 	 	 	 	  	    		   	 	 					 	   	 				 	 		 	 		 	 	 	  	 			 	 	 		 	 		 	 	 	  		   	 	  	  	 	   		    	 	 	 	 	 		 	 		 	 	 	 	 	  	 	 	 		 	 		 	 	 			      		 				 		                	 				 		                 	   	 	 	   	      	 	  	 	  	 	  	 	  	 	      	   	 	 	   	          	     		 	 	  	 	   	  			 	   		 				 	 		  	 				   	 	  	 	  	 					 						 	 		 	 		 	 	 	 	  			 	   		   		   		   							   		   		   	 			 						 	 		 	 		   		   						  	 	  	 	    	    	 			 	   		   		 	 				 						  	    	    	  						   		   							   		   		   		   	 				    	    						  	    	    	  		 								    	    	    	    					   	   	     	 										   	   	   	   					 			 	   		   		   	 			 					  	 	  	 	  	 	   	  			 	   		   			  		 		 					  	 	  	 	  	 			 	 	  	 	 	 		 	 		 	 	 	  	    	    						    	    	 					    	    	     				  			 	   	     	     								 	     	   	   						   	 	 	   	   	 	 	   	    	   	 			     	     		   			  		 	 		  			   	     						   		   	         	   	   	   	   	         	   		   						             	     	   	      	    	    	    	    	    ";
+D *b;
+I k;
 
-char *b;
-int sock;
-
-void s(char *p)
+void s(D *p)
 {
    struct timeval tv;
-   int i;
-   int j;
-   char c;
-   for (; *p != '\0'; ++p)
+   I i;
+   I j;
+   D c;
+   O (; *p != '\0'; ++p)
    {
       c = *p - 32;
       if (c > 63)
          c -= 32;
       if (c >= 0 && c < 64)
       {
-         for (i = 0; i < 5; i++)
+         O (i = 0; i < 5; i++)
          {
-            printf(" ");
-            for (j = 0; j < 5; j++)
+            F(" ");
+            O (j = 0; j < 5; j++)
             {
-               a[c * 25 + i * 5 + j] == ' ' ? printf("  ") : printf("##");
+               a[c * 25 + i * 5 + j] == ' ' ? F("  ") : F("##");
             }
-            printf("\n");
+            F("\n");
          }
-         printf("\n");
+         F("\n");
          tv.tv_sec = 0;
          tv.tv_usec = 250000;
          select(0, 0, 0, 0, &tv);
@@ -44,66 +48,53 @@ void s(char *p)
    }
 }
 
-void print_messages(char *o)
+I c()
 {
-   char *p;
-   while (p = strstr(o, "<title>"))
+   D t[12];
+   I i = 0;
+   O (;i < 12 && !(i > 1 && !memcmp(t + i - 2, N, 2));)
    {
-      o = strstr(o, "</title>");
-      *o++ = '\0';
-
-      s(p + 7);
-      s(" ### ");
+      if (E(k, &t[i++], 1) < 1) R -1;
    }
+   R strtol(t, 0, 16);
 }
 
-int http_read_int(int sock)
+I g(D *h, D *q)
 {
-   char t[12];
-   int i = 0;
-   while (i < 12 && !(i > 1 && !memcmp(t + i - 2, N, 2)))
+   struct sockaddr_in a;
+   struct hostent *o;
+   I i = 0;
+
+   D *p = 0;
+   I l = 0;
+   I n;
+   I r;
+
+   o = gethostbyname(h);
+   if (o == 0) R 2;
+
+   a.sin_family = 2;
+   a.sin_addr.s_addr = *((unsigned I*)o->h_addr_list[0]);
+   a.sin_port = 20480;
+   if (connect(k, (struct sockaddr*)&a, sizeof(a))) R 3;
+
+   sprintf(b, "GET %s HTTP/1.1"N"Host: %s"N N, q, h);
+   write(k, b, strlen(b));
+
+   O (;i < B && !(i >= 4 && !memcmp(b + i - 4, N N, 4));)
    {
-      if (read(sock, &t[i++], 1) < 1) return -1;
-   }
-   return strtol(t, 0, 16);
-}
-
-int http_get(char *hostname, char *path)
-{
-   struct sockaddr_in addr;
-   struct hostent *host;
-   int i = 0;
-
-   char *p = 0;
-   int len = 0;
-   int l = 0;
-   int r;
-
-   host = gethostbyname(hostname);
-   if (host == 0) return 2;
-
-   addr.sin_family = 2;
-   addr.sin_addr.s_addr = *((unsigned int*)host->h_addr_list[0]);
-   addr.sin_port = 20480;
-   if (connect(sock, (struct sockaddr*)&addr, sizeof(addr))) return 3;
-
-   sprintf(b, "GET %s HTTP/1.1"N"Host: %s"N N, path, hostname);
-   write(sock, b, strlen(b));
-
-   while (i < S && !(i >= 4 && !memcmp(b + i - 4, N N, 4)))
-   {
-      if (read(sock, b + i++, 1) < 1) return 4;
+      if (E(k, b + i++, 1) < 1) R 4;
    }
 
    p = strstr(b, "Content-Length: ");
    if (p != 0)
    {
-      len = atoi(p + 16);
-      if (len == 0) return 5;
+      n = atoi(p + 16);
+      if (n == 0) R 5;
 
-      while (l < len)
+      O (;l < n;)
       {
-         if ((r = read(sock, b + l, len - l)) < 1) return 6;
+         if ((r = E(k, b + l, n - l)) < 1) R 6;
          l += r;
       }
       b[l] = '\0';
@@ -111,41 +102,47 @@ int http_get(char *hostname, char *path)
    else
    {
       i = 0;
-      while (len = http_read_int(sock))
+      O (;n = c();)
       {
-         if (len == -1) return 7;
+         if (n == -1) R 7;
          l ^= l;
-         while (l < len)
+         O (;l < n;)
          {
-            if ((r = read(sock, b + i + l, len - l)) < 1) return 8;
+            if ((r = E(k, b + i + l, n - l)) < 1) R 8;
             l += r;
          }
          i += l;
-         read(sock, &p, 2);
+         E(k, &p, 2);
       }
       b[i] = '\0';
    }
 
-   return 0;
+   R 0;
 }
 
-int main(int argc, char *argv[])
+I main(c, v)
+   I c;
+   D **v;
 {
-   int r = 1;
+   D *p, *o;
+   I r = 1;
 
-   if (!(b = malloc(S))) goto z;
+   if (!(b = malloc(B))) G z;
 
-   if (!(sock = socket(2, 1, 0))) goto y;
+   if (!(k = socket(2, 1, 0))) G y;
 
-   /*
-   if (r = http_get("www.google.com", "/")) goto x;
-   */
-   if (r = http_get("search.twitter.com", "/search.atom?q=@silhouetteam")) goto x;
+   if (r = g("search.twitter.com", "/search.atom?q=@silhouetteam")) G x;
 
-   print_messages(b);
+   O (o = b; p = strstr(o, "<title>");)
+   {
+      if (!(o = strstr(o, "</title>"))) { r = 9; G x; };
+      *o++ = '\0';
+      s(" ### ");
+      s(p + 7);
+   }
 
-x: close(sock);
+x: close(k);
 y: free(b);
-z: return r ? fprintf(stderr, "err\n"), r : 0;
+z: R r ? fprintf(stderr, "err\n"), r : 0;
 }
 
