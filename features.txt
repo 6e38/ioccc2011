@@ -4,9 +4,9 @@ return func(), 1
 k&r func
 xor clear
 character map made of ws
-string n8! in ascii octets
+string n8!\0 in binary
 error codes
 obligatory: *o++ = '\0';
 shadowed function name 'c'
-&& var 'a'
-
+shadowed var 'a'
+port number 80 written in decimal network order

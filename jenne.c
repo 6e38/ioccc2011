@@ -4,7 +4,7 @@
 #include <netdb.h>
 #include <string.h>
 #include <sys/select.h>
-#define B 0x6e3821
+#define B 2177134
 #define O for
 #define R return
 #define I int
@@ -13,7 +13,7 @@
 #define D char
 #define E read
 #define F printf
-D *a = "                                   	 			                  		        		      	 	 					 	 	 					 	 	 	  	 	 	 							 	 		   		  		 	  	  	  	  	 		  	 		  	  			 	 	 	  		 	               		                     			 	   	          	   	 			           	 	 	 			 					 			 	 	 	       	   			   	             	   		               	    	    	    	    	       		   		             	     	     	     	     	 			 		  		 	 		  		 			      	  	 						         		  		 	 		 	 		 	 		  	 	   		   		 	 		 	 	 	 	  	    		   	 	 					 	   	 				 	 		 	 		 	 	 	  	 			 	 	 		 	 		 	 	 	  		   	 	  	  	 	   		    	 	 	 	 	 		 	 		 	 	 	 	 	  	 	 	 		 	 		 	 	 			      		 				 		                	 				 		                 	   	 	 	   	      	 	  	 	  	 	  	 	  	 	      	   	 	 	   	          	     		 	 	  	 	   	  			 	   		 				 	 		  	 				   	 	  	 	  	 					 						 	 		 	 		 	 	 	 	  			 	   		   		   		   							   		   		   	 			 						 	 		 	 		   		   						  	 	  	 	    	    	 			 	   		   		 	 				 						  	    	    	  						   		   							   		   		   		   	 				    	    						  	    	    	  		 								    	    	    	    					   	   	     	 										   	   	   	   					 			 	   		   		   	 			 					  	 	  	 	  	 	   	  			 	   		   			  		 		 					  	 	  	 	  	 			 	 	  	 	 	 		 	 		 	 	 	  	    	    						    	    	 					    	    	     				  			 	   	     	     								 	     	   	   						   	 	 	   	   	 	 	   	    	   	 			     	     		   			  		 	 		  			   	     						   		   	         	   	   	   	   	         	   		   						             	     	   	      	    	    	    	    	    ";
+D*a="                                   	 			                  		        		      	 	 					 	 	 					 	 	 	  	 	 	 							 	 		   		  		 	  	  	  	  	 		  	 		  	  			 	 	 	  		 	               		                     			 	   	          	   	 			           	 	 	 			 					 			 	 	 	       	   			   	             	   		               	    	    	    	    	       		   		             	     	     	     	     	 			 		  		 	 		  		 			      	  	 						         		  		 	 		 	 		 	 		  	 	   		   		 	 		 	 	 	 	  	    		   	 	 					 	   	 				 	 		 	 		 	 	 	  	 			 	 	 		 	 		 	 	 	  		   	 	  	  	 	   		    	 	 	 	 	 		 	 		 	 	 	 	 	  	 	 	 		 	 		 	 	 			      		 				 		                	 				 		                 	   	 	 	   	      	 	  	 	  	 	  	 	  	 	      	   	 	 	   	          	     		 	 	  	 	   	  			 	   		 				 	 		  	 				   	 	  	 	  	 					 						 	 		 	 		 	 	 	 	  			 	   		   		   		   							   		   		   	 			 						 	 		 	 		   		   						  	 	  	 	    	    	 			 	   		   		 	 				 						  	    	    	  						   		   							   		   		   		   	 				    	    						  	    	    	  		 								    	    	    	    					   	   	     	 										   	   	   	   					 			 	   		   		   	 			 					  	 	  	 	  	 	   	  			 	   		   			  		 		 					  	 	  	 	  	 			 	 	  	 	 	 		 	 		 	 	 	  	    	    						    	    	 					    	    	     				  			 	   	     	     								 	     	   	   						   	 	 	   	   	 	 	   	    	   	 			     	     		   			  		 	 		  			   	     						   		   	         	   	   	   	   	         	   		   						             	     	   	      	    	    	    	    	    ";
 
 D *b;
 I k;
@@ -124,14 +124,17 @@ I main(c, v)
    I c;
    D **v;
 {
-   D *p, *o;
+   D *p, *o, l[1337];
    I r = 1;
+
+   if (c != 2) G z;
 
    if (!(b = malloc(B))) G z;
 
    if (!(k = socket(2, 1, 0))) G y;
 
-   if (r = g("search.twitter.com", "/search.atom?q=@silhouetteam")) G x;
+   sprintf(l, "/search.atom?q=%s&rpp=1", v[1]);
+   if (r = g("search.twitter.com", l)) G x;
 
    O (o = b; p = strstr(o, "<title>");)
    {
