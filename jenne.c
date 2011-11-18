@@ -5,32 +5,32 @@
 #include <string.h>
 #include <sys/select.h>
 #include <unistd.h>
-#define B 2177134
 #define O for
-#define R return
-#define I int
-#define N "\r\n"
-#define G goto
-#define D char
-#define E read
+#define B 2177134
 #define F printf
-D*a="                                   	 			                  		        		      	 	 					 	 	 					 	 	 	  	 	 	 							 	 		   		  		 	  	  	  	  	 		  	 		  	  			 	 	 	  		 	               		                     			 	   	          	   	 			           	 	 	 			 					 			 	 	 	       	   			   	             	   		               	    	    	    	    	       		   		             	     	     	     	     	 			 		  		 	 		  		 			      	  	 						         		  		 	 		 	 		 	 		  	 	   		   		 	 		 	 	 	 	  	    		   	 	 					 	   	 				 	 		 	 		 	 	 	  	 			 	 	 		 	 		 	 	 	  		   	 	  	  	 	   		    	 	 	 	 	 		 	 		 	 	 	 	 	  	 	 	 		 	 		 	 	 			      		 				 		                	 				 		                 	   	 	 	   	      	 	  	 	  	 	  	 	  	 	      	   	 	 	   	          	     		 	 	  	 	   	  			 	   		 				 	 		  	 				   	 	  	 	  	 					 						 	 		 	 		 	 	 	 	  			 	   		   		   		   							   		   		   	 			 						 	 		 	 		   		   						  	 	  	 	    	    	 			 	   		   		 	 				 						  	    	    	  						   		   							   		   		   		   	 				    	    						  	    	    	  		 								    	    	    	    					   	   	     	 										   	   	   	   					 			 	   		   		   	 			 					  	 	  	 	  	 	   	  			 	   		   			  		 		 					  	 	  	 	  	 			 	 	  	 	 	 		 	 		 	 	 	  	    	    						    	    	 					    	    	     				  			 	   	     	     								 	     	   	   						   	 	 	   	   	 	 	   	    	   	 			     	     		   			  		 	 		  			   	     						   		   	         	   	   	   	   	         	   		   						             	     	   	      	    	    	    	    	    ";
+#define U return
+#define S int
+#define C "\r\n"
+#define A goto
+#define T char
+#define E read
 
-D *b;
-I k, q = 0;
+T *b, *a;
+S k, q = 1;
+char *(*_)() = strstr;
 
 void u()
 {
    struct timeval tv;
    tv.tv_sec = 0;
-   tv.tv_usec = q ? 0 : 40000;
+   tv.tv_usec = q ? 40000 : 0;
    select(0, 0, 0, 0, &tv);
 }
 
-void s(D *p)
+void s(T *p)
 {
-   I i, j;
-   D c;
+   S i, j;
+   T c;
    O (; *p != '\0'; ++p)
    {
       c = *p - 32;
@@ -52,53 +52,53 @@ void s(D *p)
    }
 }
 
-I c()
+S c()
 {
-   D t[12];
-   I i = 0;
-   O (;i < 12 && !(i > 1 && !memcmp(t + i - 2, N, 2));)
+   T t[12];
+   S i = 0;
+   O (;i < 12 && !(i > 1 && !memcmp(t + i - 2, C, 2));)
    {
-      if (E(k, &t[i++], 1) < 1) R -1;
+      if (E(k, &t[i++], 1) < 1) U -1;
    }
-   R strtol(t, 0, 16);
+   U strtol(t, 0, 16);
 }
 
-I g(D *h, D *q)
+S g(T *h, T *q)
 {
    struct sockaddr_in a;
    struct hostent *o;
-   I i = 0;
+   S i = 0;
 
-   D *p = 0;
-   I l = 0;
-   I n;
-   I r;
+   T *p = 0;
+   S l = 0;
+   S n;
+   S r;
 
    o = gethostbyname(h);
-   if (o == 0) R 4;
+   if (o == 0) U 4;
 
    a.sin_family = 2;
-   a.sin_addr.s_addr = *((unsigned I*)o->h_addr_list[0]);
+   a.sin_addr.s_addr = *((unsigned S*)o->h_addr_list[0]);
    a.sin_port = 20480;
-   if (connect(k, (struct sockaddr*)&a, sizeof(a))) R 5;
+   if (connect(k, (struct sockaddr*)&a, sizeof(a))) U 5;
 
-   sprintf(b, "GET %s HTTP/1.1"N"Host: %s"N N, q, h);
+   sprintf(b, "GET %s HTTP/1.1"C"Host: %s"C C, q, h);
    write(k, b, strlen(b));
 
-   O (;i < B && !(i >= 4 && !memcmp(b + i - 4, N N, 4));)
+   O (;i < B && !(i >= 4 && !memcmp(b + i - 4, C C, 4));)
    {
-      if (E(k, b + i++, 1) < 1) R 6;
+      if (E(k, b + i++, 1) < 1) U 6;
    }
 
-   p = strstr(b, "Content-Length: ");
+   p = _(b, "Content-Length: ");
    if (p != 0)
    {
       n = atoi(p + 16);
-      if (n == 0) R 7;
+      if (n == 0) U 7;
 
       O (;l < n;)
       {
-         if ((r = E(k, b + l, n - l)) < 1) R 8;
+         if ((r = E(k, b + l, n - l)) < 1) U 8;
          l += r;
       }
       b[l] = '\0';
@@ -106,13 +106,13 @@ I g(D *h, D *q)
    else
    {
       i = 0;
-      O (;n = c();)
+      O (;(n = c());)
       {
-         if (n == -1) R 9;
+         if (n == -1) U 9;
          l ^= l;
          O (;l < n;)
          {
-            if ((r = E(k, b + i + l, n - l)) < 1) R 10;
+            if ((r = E(k, b + i + l, n - l)) < 1) U 10;
             l += r;
          }
          i += l;
@@ -121,38 +121,35 @@ I g(D *h, D *q)
       b[i] = '\0';
    }
 
-   R 0;
+   U 0;
 }
 
-void t(I s)
+S main(c, v)
+   S c;
+   T **v;
 {
-   q = 1;
-}
+   T *p, *o, l[1337];
+   S r = 1;
 
-I main(c, v)
-   I c;
-   D **v;
-{
-   D *p, *o, l[1337];
-   I r = 1;
+   void w(S s){q=0;}
+   signal(2, w);
+   signal(15, w);
 
-   signal(SIGINT, t);
-
-   if (c != 2) G z;
+   if (c != 2) A z;
 
    r = 2;
-   if (!(b = malloc(B))) G z;
+   if (!(b = malloc(B))) A z;
 
    r = 3;
-   if (!(k = socket(2, 1, 0))) G y;
+   if (!(k = socket(2, 1, 0))) A y;
 
    sprintf(l, "/1/statuses/user_timeline.atom?screen_name=%s", v[1]);
-   if (r = g("api.twitter.com", l)) G x;
+   if ((r = g("api.twitter.com", l))) A x;
 
-   o = strstr(b, "<entry>");
-   O (; p = strstr(o, "<title>");)
+   o = _(b, "<entry>");
+   O (; (p = _(o, "<title>")) && q;)
    {
-      if (!(o = strstr(o, "</title>"))) { r = 11; G x; };
+      if (!(o = _(o, "</title>"))) { r = 11; A x; };
       *o++ = '\0';
       s(" ### ");
       s(p + 7);
@@ -160,6 +157,328 @@ I main(c, v)
 
 x: close(k);
 y: free(b);
-z: R r ? fprintf(stderr, "err\n"), r : 0;
+z: U r ? fprintf(stderr, "err\n"), r : 0;
 }
 
+T*a="\
+     \
+     \
+     \
+     \
+     \
+     \
+     \
+	 			\
+     \
+     \
+     \
+   		\
+     \
+   		\
+     \
+ 	 	 \
+					\
+ 	 	 \
+					\
+ 	 	 \
+	  	 \
+	 	 	\
+					\
+	 	 	\
+	   	\
+	  		\
+ 	  	\
+  	  \
+	  	 \
+		  	\
+ 		  \
+	  		\
+	 	 	\
+ 	  	\
+	 	  \
+     \
+     \
+   		\
+     \
+     \
+     \
+     \
+ 			 \
+	   	\
+     \
+     \
+	   	\
+ 			 \
+     \
+     \
+	 	 	\
+ 			 \
+					\
+ 			 \
+	 	 	\
+     \
+  	  \
+ 			 \
+  	  \
+     \
+     \
+ 	   \
+		   \
+     \
+     \
+  	  \
+  	  \
+  	  \
+  	  \
+  	  \
+     \
+		   \
+		   \
+     \
+     \
+	    \
+ 	   \
+  	  \
+   	 \
+    	\
+ 			 \
+		  	\
+	 	 	\
+	  		\
+ 			 \
+     \
+	  	 \
+					\
+	    \
+     \
+		  	\
+	 	 	\
+	 	 	\
+	 	 	\
+	  	 \
+	   	\
+	   	\
+	 	 	\
+	 	 	\
+ 	 	 \
+ 	   \
+ 		  \
+ 	 	 \
+					\
+ 	   \
+	 			\
+	 	 	\
+	 	 	\
+	 	 	\
+ 	  	\
+ 			 \
+	 	 	\
+	 	 	\
+	 	 	\
+ 	  	\
+	   	\
+ 	  	\
+  	 	\
+   		\
+    	\
+ 	 	 \
+	 	 	\
+	 	 	\
+	 	 	\
+ 	 	 \
+	  	 \
+	 	 	\
+	 	 	\
+	 	 	\
+ 			 \
+     \
+		 		\
+		 		\
+     \
+     \
+     \
+ 	 		\
+		 		\
+     \
+     \
+     \
+  	  \
+ 	 	 \
+	   	\
+     \
+ 	 	 \
+ 	 	 \
+ 	 	 \
+ 	 	 \
+ 	 	 \
+     \
+	   	\
+ 	 	 \
+  	  \
+     \
+   	 \
+    	\
+	 	 	\
+  	 	\
+   	 \
+ 			 \
+	   	\
+	 			\
+	 	 	\
+	  	 \
+				 \
+  	 	\
+  	 	\
+  	 	\
+				 \
+					\
+	 	 	\
+	 	 	\
+	 	 	\
+ 	 	 \
+ 			 \
+	   	\
+	   	\
+	   	\
+	   	\
+					\
+	   	\
+	   	\
+	   	\
+ 			 \
+					\
+	 	 	\
+	 	 	\
+	   	\
+	   	\
+					\
+  	 	\
+  	 	\
+    	\
+    	\
+ 			 \
+	   	\
+	   	\
+	 	 	\
+			 	\
+					\
+  	  \
+  	  \
+  	  \
+					\
+	   	\
+	   	\
+					\
+	   	\
+	   	\
+	   	\
+	   	\
+ 				\
+    	\
+    	\
+					\
+  	  \
+  	  \
+  	  \
+		 		\
+					\
+	    \
+	    \
+	    \
+	    \
+					\
+   	 \
+  	  \
+   	 \
+					\
+					\
+   	 \
+  	  \
+ 	   \
+					\
+ 			 \
+	   	\
+	   	\
+	   	\
+ 			 \
+					\
+  	 	\
+  	 	\
+  	 	\
+   	 \
+ 			 \
+	   	\
+	   	\
+		  	\
+	 		 \
+					\
+  	 	\
+  	 	\
+  	 	\
+		 	 \
+	  	 \
+	 	 	\
+	 	 	\
+	 	 	\
+ 	  	\
+    	\
+    	\
+					\
+    	\
+    	\
+ 				\
+	    \
+	    \
+	    \
+ 				\
+  			\
+ 	   \
+	    \
+ 	   \
+  			\
+					\
+ 	   \
+  	  \
+ 	   \
+					\
+	   	\
+ 	 	 \
+  	  \
+ 	 	 \
+	   	\
+    	\
+   	 \
+			  \
+   	 \
+    	\
+	   	\
+		  	\
+	 	 	\
+	  		\
+	   	\
+     \
+					\
+	   	\
+	   	\
+     \
+    	\
+   	 \
+  	  \
+ 	   \
+	    \
+     \
+	   	\
+	   	\
+					\
+     \
+     \
+   	 \
+    	\
+   	 \
+     \
+	    \
+	    \
+	    \
+	    \
+	    \
+";
