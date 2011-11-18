@@ -1,9 +1,10 @@
+#include <netdb.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <netdb.h>
 #include <string.h>
 #include <sys/select.h>
+#include <unistd.h>
 #define B 2177134
 #define O for
 #define R return
@@ -16,13 +17,13 @@
 D*a="                                   	 			                  		        		      	 	 					 	 	 					 	 	 	  	 	 	 							 	 		   		  		 	  	  	  	  	 		  	 		  	  			 	 	 	  		 	               		                     			 	   	          	   	 			           	 	 	 			 					 			 	 	 	       	   			   	             	   		               	    	    	    	    	       		   		             	     	     	     	     	 			 		  		 	 		  		 			      	  	 						         		  		 	 		 	 		 	 		  	 	   		   		 	 		 	 	 	 	  	    		   	 	 					 	   	 				 	 		 	 		 	 	 	  	 			 	 	 		 	 		 	 	 	  		   	 	  	  	 	   		    	 	 	 	 	 		 	 		 	 	 	 	 	  	 	 	 		 	 		 	 	 			      		 				 		                	 				 		                 	   	 	 	   	      	 	  	 	  	 	  	 	  	 	      	   	 	 	   	          	     		 	 	  	 	   	  			 	   		 				 	 		  	 				   	 	  	 	  	 					 						 	 		 	 		 	 	 	 	  			 	   		   		   		   							   		   		   	 			 						 	 		 	 		   		   						  	 	  	 	    	    	 			 	   		   		 	 				 						  	    	    	  						   		   							   		   		   		   	 				    	    						  	    	    	  		 								    	    	    	    					   	   	     	 										   	   	   	   					 			 	   		   		   	 			 					  	 	  	 	  	 	   	  			 	   		   			  		 		 					  	 	  	 	  	 			 	 	  	 	 	 		 	 		 	 	 	  	    	    						    	    	 					    	    	     				  			 	   	     	     								 	     	   	   						   	 	 	   	   	 	 	   	    	   	 			     	     		   			  		 	 		  			   	     						   		   	         	   	   	   	   	         	   		   						             	     	   	      	    	    	    	    	    ";
 
 D *b;
-I k;
+I k, q = 0;
 
 void u()
 {
    struct timeval tv;
    tv.tv_sec = 0;
-   tv.tv_usec = 40000;
+   tv.tv_usec = q ? 0 : 40000;
    select(0, 0, 0, 0, &tv);
 }
 
@@ -123,12 +124,19 @@ I g(D *h, D *q)
    R 0;
 }
 
+void t(I s)
+{
+   q = 1;
+}
+
 I main(c, v)
    I c;
    D **v;
 {
    D *p, *o, l[1337];
    I r = 1;
+
+   signal(SIGINT, t);
 
    if (c != 2) G z;
 
