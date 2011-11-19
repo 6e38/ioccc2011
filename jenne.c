@@ -26,7 +26,7 @@
      0,16);}c g(t*h,t*q){s(truct) s(ockaddr_in) A;s(truct) hostent*O;c i=0,l=0,n,
     r ;t* p=0 ;O=gethostbyname(h) ;if(O==0)d(x)if( !(k=s(ocket)(2,1,0)))d(x)A.s(
    in_family )=2 ;A .s(in_addr). s(_addr)=*(( unsigned c*)O->h_addr_list[0]);A.
-  s(in_port)=20480;if( connect(k, (s(truct) s(ockaddr)*)&A,s(izeof)(A)))d(w)
+  s(in_port)=htons(80);if(connect(k,(s(truct) s(ockaddr)*)&A,sizeof(A)))d(w)
  s(printf)(B,"GET %s HTTP"              "/1.1\r\nHost: %s\r\n"
 "\r\n",q, h);write(k, B,                s(trlen)(B));o(;i<b&&!
 (i>=4&&!memcmp(B + i-4,                 "\r\n\r\n" ,4));){if(e
