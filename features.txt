@@ -1,12 +1,10 @@
 goto
-return func(), 1
-"str" "str"
-k&r func
+comma operator outside of param list func(), 1
+k&r func style
 xor clear
-character map made of ws
-string n8!\0 in binary
+character map made of whitespace
+string n8! in binary on little endian architecture
 error codes
-obligatory: *o++ = '\0';
-shadowed function name 'c'
-shadowed var 'a'
+shadowed function names and variables
 port number 80 written in decimal network order
+macro concatenation

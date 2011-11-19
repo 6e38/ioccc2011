@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/select.h>
+#include <time.h>
 #include <unistd.h>
 #define o for
 #define b 2177134
@@ -14,7 +15,7 @@
 #define a __LINE__
 #define t char
 #define e read
-#define d(_) {r = a; goto _;}
+#define d(_) {r = a;goto _;}
 
 t *B, *A;
 c k, q = 1;
@@ -32,7 +33,7 @@ void F(t *p)
 {
    c i, j;
    t C;
-   o (; *p != '\0'; ++p)
+   o (; *p != 0; ++p)
    {
       C = *p - 32;
       if (C > 63)
@@ -68,61 +69,60 @@ c g(t *h, t *q)
 {
    s(truct) s(ockaddr_in) A;
    s(truct) hostent *O;
-   c i = 0;
-
+   c i = 0, l = 0, n, r;
    t *p = 0;
-   c l = 0;
-   c n;
-   c r;
 
    O = gethostbyname(h);
-   if (O == 0) u a;
+   if (O == 0) d(x)
+
+   if (!(k = s(ocket)(2, 1, 0))) d(x)
 
    A.s(in_family) = 2;
    A.s(in_addr).s(_addr) = *((unsigned c*)O->h_addr_list[0]);
    A.s(in_port) = 20480;
-   if (connect(k, (s(truct) s(ockaddr)*)&A, s(izeof)(A))) u a;
+   if (connect(k, (s(truct) s(ockaddr)*)&A, s(izeof)(A))) d(w)
 
    s(printf)(B, "GET %s HTTP/1.1\r\nHost: %s\r\n\r\n", q, h);
    write(k, B, s(trlen)(B));
 
    o (;i < b && !(i >= 4 && !memcmp(B + i - 4, "\r\n\r\n", 4));)
    {
-      if (e(k, B + i++, 1) < 1) u a;
+      if (e(k, B + i++, 1) < 1) d(w)
    }
 
    p = _(B, "Content-Length: ");
    if (p != 0)
    {
       n = atoi(p + 16);
-      if (n == 0) u a;
+      if (n == 0) d(w)
 
       o (;l < n;)
       {
-         if ((r = e(k, B + l, n - l)) < 1) u a;
+         if ((r = e(k, B + l, n - l)) < 1) d(w)
          l += r;
       }
-      B[l] = '\0';
+      B[l] = 0;
    }
    else
    {
       i = 0;
       o (;(n = C());)
       {
-         if (n == -1) u a;
+         if (n == -1) d(w)
          l ^= l;
          o (;l < n;)
          {
-            if ((r = e(k, B + i + l, n - l)) < 1) u a;
+            if ((r = e(k, B + i + l, n - l)) < 1) d(w)
             l += r;
          }
          i += l;
          e(k, &p, 2);
       }
-      B[i] = '\0';
+      B[i] = 0;
    }
-
-   u 0;
+   r = 0;
+w: close(k);
+x: u r;
 }
 
 c main(C, v)
@@ -130,7 +130,7 @@ c main(C, v)
    t **v;
 {
    t *p, *O, l[1337];
-   c r;
+   c r, X;
 
    void w(c _){q=0;}
    s(ignal)(2, w),
@@ -140,21 +140,28 @@ c main(C, v)
 
    if (!(B = malloc(b))) d(z)
 
-   if (!(k = s(ocket)(2, 1, 0))) d(y)
-
    s(printf)(l, "/1/statuses/user_timeline.atom?screen_name=%s", v[1]);
-   if ((r = g("api.twitter.com", l))) goto x;
 
-   if (!(O = _(B, "<entry>"))) d(x)
-   o (; (p = _(O, "<title>")) && q;)
+   o(;q;)
    {
-      if (!(O = _(O, "</title>"))) d(x)
-      *O++ = '\0';
-      F(" ### ");
-      F(p + 7);
+      fprintf(stderr, "refresh %ld\n", (unsigned long)time(0));
+
+      if ((r = g("api.twitter.com", l))) goto y;
+
+      o(X = time(0); q && time(0) - X < 60;)
+      {
+         if (!(O = _(B, "<entry>"))) d(y)
+         o (; (p = _(O, "<title>")) && q;)
+         {
+            if (!(O = _(O, "</title>"))) d(y)
+            *O = 0;
+            F(" ### ");
+            F(p + 7);
+            *O++ = 60;
+         }
+      }
    }
 
-x: close(k);
 y: free(B);
 z: u r ? fprintf(s(tderr), "err\n"), r : 0;
 }
