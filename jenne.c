@@ -5,163 +5,161 @@
 #include <string.h>
 #include <sys/select.h>
 #include <unistd.h>
-#define O for
-#define B 2177134
-#define F printf
-#define U return
-#define S int
-#define C "\r\n"
-#define A goto
-#define T char
-#define E read
-#define D __LINE__
+#define o for
+#define b 2177134
+#define f printf
+#define u return
+#define s(_) s##_
+#define c int
+#define a __LINE__
+#define t char
+#define e read
+#define d(_) {r = a; goto _;}
 
-T *b, *a;
-S k, q = 1;
-char *(*_)() = strstr;
+t *B, *A;
+c k, q = 1;
+char *(*_)() = s(trstr);
 
-void u()
+void U()
 {
-   struct timeval tv;
+   s(truct) timeval tv;
    tv.tv_sec = 0;
    tv.tv_usec = q ? 40000 : 0;
-   select(0, 0, 0, 0, &tv);
+   s(elect)(0, 0, 0, 0, &tv);
 }
 
-void s(T *p)
+void F(t *p)
 {
-   S i, j;
-   T c;
-   O (; *p != '\0'; ++p)
+   c i, j;
+   t C;
+   o (; *p != '\0'; ++p)
    {
-      c = *p - 32;
-      if (c > 63)
-         c -= 32;
-      if (c >= 0 && c < 59)
+      C = *p - 32;
+      if (C > 63)
+         C -= 32;
+      if (C >= 0 && C < 59)
       {
-         O (i = c ? 0 : 4; i < 5; i++)
+         o (i = C ? 0 : 4; i < 5; i++)
          {
-            F("  ");
-            O (j = 0; j < 5; j++)
-               F(a[c * 25 + i * 5 + j] == ' ' ? "  " : "##");
-            F("\n");
-            u();
+            f("  ");
+            o (j = 0; j < 5; j++)
+               f(A[C * 25 + i * 5 + j] == ' ' ? "  " : "##");
+            f("\n");
+            U();
          }
-         F("\n");
-         u();
+         f("\n");
+         U();
       }
    }
 }
 
-S c()
+c C()
 {
-   T t[12];
-   S i = 0;
-   O (;i < 12 && !(i > 1 && !memcmp(t + i - 2, C, 2));)
+   t m[12];
+   c i = 0;
+   o (;i < 12 && !(i > 1 && !memcmp(m + i - 2, "\r\n", 2));)
    {
-      if (E(k, &t[i++], 1) < 1) U -1;
+      if (e(k, &m[i++], 1) < 1) u -1;
    }
-   U strtol(t, 0, 16);
+   u s(trtol)(m, 0, 16);
 }
 
-S g(T *h, T *q)
+c g(t *h, t *q)
 {
-   struct sockaddr_in a;
-   struct hostent *o;
-   S i = 0;
+   s(truct) s(ockaddr_in) A;
+   s(truct) hostent *O;
+   c i = 0;
 
-   T *p = 0;
-   S l = 0;
-   S n;
-   S r;
+   t *p = 0;
+   c l = 0;
+   c n;
+   c r;
 
-   o = gethostbyname(h);
-   if (o == 0) U D;
+   O = gethostbyname(h);
+   if (O == 0) u a;
 
-   a.sin_family = 2;
-   a.sin_addr.s_addr = *((unsigned S*)o->h_addr_list[0]);
-   a.sin_port = 20480;
-   if (connect(k, (struct sockaddr*)&a, sizeof(a))) U D;
+   A.s(in_family) = 2;
+   A.s(in_addr).s(_addr) = *((unsigned c*)O->h_addr_list[0]);
+   A.s(in_port) = 20480;
+   if (connect(k, (s(truct) s(ockaddr)*)&A, s(izeof)(A))) u a;
 
-   sprintf(b, "GET %s HTTP/1.1"C"Host: %s"C C, q, h);
-   write(k, b, strlen(b));
+   s(printf)(B, "GET %s HTTP/1.1\r\nHost: %s\r\n\r\n", q, h);
+   write(k, B, s(trlen)(B));
 
-   O (;i < B && !(i >= 4 && !memcmp(b + i - 4, C C, 4));)
+   o (;i < b && !(i >= 4 && !memcmp(B + i - 4, "\r\n\r\n", 4));)
    {
-      if (E(k, b + i++, 1) < 1) U D;
+      if (e(k, B + i++, 1) < 1) u a;
    }
 
-   p = _(b, "Content-Length: ");
+   p = _(B, "Content-Length: ");
    if (p != 0)
    {
       n = atoi(p + 16);
-      if (n == 0) U D;
+      if (n == 0) u a;
 
-      O (;l < n;)
+      o (;l < n;)
       {
-         if ((r = E(k, b + l, n - l)) < 1) U D;
+         if ((r = e(k, B + l, n - l)) < 1) u a;
          l += r;
       }
-      b[l] = '\0';
+      B[l] = '\0';
    }
    else
    {
       i = 0;
-      O (;(n = c());)
+      o (;(n = C());)
       {
-         if (n == -1) U D;
+         if (n == -1) u a;
          l ^= l;
-         O (;l < n;)
+         o (;l < n;)
          {
-            if ((r = E(k, b + i + l, n - l)) < 1) U D;
+            if ((r = e(k, B + i + l, n - l)) < 1) u a;
             l += r;
          }
          i += l;
-         E(k, &p, 2);
+         e(k, &p, 2);
       }
-      b[i] = '\0';
+      B[i] = '\0';
    }
 
-   U 0;
+   u 0;
 }
 
-S main(c, v)
-   S c;
-   T **v;
+c main(C, v)
+   c C;
+   t **v;
 {
-   T *p, *o, l[1337];
-   S r;
+   t *p, *O, l[1337];
+   c r;
 
-   void w(S s){q=0;}
-   signal(2, w),
-   signal(15, w);
+   void w(c _){q=0;}
+   s(ignal)(2, w),
+   s(ignal)(15, w);
 
-#define Z(y) {r = D; A y;}
-   if (c != 2) Z(z)
+   if (C != 2) d(z)
 
-   if (!(b = malloc(B))) Z(z)
+   if (!(B = malloc(b))) d(z)
 
-   if (!(k = socket(2, 1, 0))) Z(y)
+   if (!(k = s(ocket)(2, 1, 0))) d(y)
 
-   sprintf(l, "/1/statuses/user_timeline.atom?screen_name=%s", v[1]);
-   if ((r = g("api.twitter.com", l))) A x;
+   s(printf)(l, "/1/statuses/user_timeline.atom?screen_name=%s", v[1]);
+   if ((r = g("api.twitter.com", l))) goto x;
 
-#define H(x) "<" #x ">"
-   if (!(o = _(b, H(entry)))) Z(x)
-   O (; (p = _(o, H(title))) && q;)
+   if (!(O = _(B, "<entry>"))) d(x)
+   o (; (p = _(O, "<title>")) && q;)
    {
-      if (!(o = _(o, H(/title)))) Z(x)
-      *o++ = '\0';
-      s(" ### ");
-      s(p + 7);
+      if (!(O = _(O, "</title>"))) d(x)
+      *O++ = '\0';
+      F(" ### ");
+      F(p + 7);
    }
 
 x: close(k);
-y: free(b);
-z: U r ? fprintf(stderr, "err\n"), r : 0;
+y: free(B);
+z: u r ? fprintf(s(tderr), "err\n"), r : 0;
 }
 
-T*a="\
+t*A="\
                                    	 			                  		        		      	 	 \
 					 	 	 					 	 	 	  	 	 	 							 	 		   		  		 	  	  	  	  	 		  	 		  	  		\
 	 	 	 	  		 	               		                     			 	   	          	   	 			 \
