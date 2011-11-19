@@ -14,6 +14,7 @@
 #define A goto
 #define T char
 #define E read
+#define D __LINE__
 
 T *b, *a;
 S k, q = 1;
@@ -75,30 +76,30 @@ S g(T *h, T *q)
    S r;
 
    o = gethostbyname(h);
-   if (o == 0) U 4;
+   if (o == 0) U D;
 
    a.sin_family = 2;
    a.sin_addr.s_addr = *((unsigned S*)o->h_addr_list[0]);
    a.sin_port = 20480;
-   if (connect(k, (struct sockaddr*)&a, sizeof(a))) U 5;
+   if (connect(k, (struct sockaddr*)&a, sizeof(a))) U D;
 
    sprintf(b, "GET %s HTTP/1.1"C"Host: %s"C C, q, h);
    write(k, b, strlen(b));
 
    O (;i < B && !(i >= 4 && !memcmp(b + i - 4, C C, 4));)
    {
-      if (E(k, b + i++, 1) < 1) U 6;
+      if (E(k, b + i++, 1) < 1) U D;
    }
 
    p = _(b, "Content-Length: ");
    if (p != 0)
    {
       n = atoi(p + 16);
-      if (n == 0) U 7;
+      if (n == 0) U D;
 
       O (;l < n;)
       {
-         if ((r = E(k, b + l, n - l)) < 1) U 8;
+         if ((r = E(k, b + l, n - l)) < 1) U D;
          l += r;
       }
       b[l] = '\0';
@@ -108,11 +109,11 @@ S g(T *h, T *q)
       i = 0;
       O (;(n = c());)
       {
-         if (n == -1) U 9;
+         if (n == -1) U D;
          l ^= l;
          O (;l < n;)
          {
-            if ((r = E(k, b + i + l, n - l)) < 1) U 10;
+            if ((r = E(k, b + i + l, n - l)) < 1) U D;
             l += r;
          }
          i += l;
@@ -129,29 +130,27 @@ S main(c, v)
    T **v;
 {
    T *p, *o, l[1337];
-   S r = 1;
+   S r;
 
    void w(S s){q=0;}
-   signal(2, w);
+   signal(2, w),
    signal(15, w);
 
-   if (c != 2) A z;
+#define Z(y) {r = D; A y;}
+   if (c != 2) Z(z)
 
-   r = 2;
-   if (!(b = malloc(B))) A z;
+   if (!(b = malloc(B))) Z(z)
 
-   r = 3;
-   if (!(k = socket(2, 1, 0))) A y;
+   if (!(k = socket(2, 1, 0))) Z(y)
 
    sprintf(l, "/1/statuses/user_timeline.atom?screen_name=%s", v[1]);
    if ((r = g("api.twitter.com", l))) A x;
 
-   r = 11;
-   if (!(o = _(b, "<entry>"))) A x;
-   O (; (p = _(o, "<title>")) && q;)
+#define H(x) "<" #x ">"
+   if (!(o = _(b, H(entry)))) Z(x)
+   O (; (p = _(o, H(title))) && q;)
    {
-      r = 12;
-      if (!(o = _(o, "</title>"))) A x;
+      if (!(o = _(o, H(/title)))) Z(x)
       *o++ = '\0';
       s(" ### ");
       s(p + 7);
@@ -162,4 +161,25 @@ y: free(b);
 z: U r ? fprintf(stderr, "err\n"), r : 0;
 }
 
-T*a="                                   	 			                  		        		      	 	 					 	 	 					 	 	 	  	 	 	 							 	 		   		  		 	  	  	  	  	 		  	 		  	  			 	 	 	  		 	               		                     			 	   	          	   	 			           	 	 	 			 					 			 	 	 	       	   			   	             	   		               	    	    	    	    	       		   		             	     	     	     	     	 			 		  		 	 		  		 			      	  	 						         		  		 	 		 	 		 	 		  	 	   		   		 	 		 	 	 	 	  	    		   	 	 					 	   	 				 	 		 	 		 	 	 	  	 			 	 	 		 	 		 	 	 	  		   	 	  	  	 	   		    	 	 	 	 	 		 	 		 	 	 	 	 	  	 	 	 		 	 		 	 	 			      		 				 		                	 				 		                 	   	 	 	   	      	 	  	 	  	 	  	 	  	 	      	   	 	 	   	          	     		 	 	  	 	   	  			 	   		 				 	 		  	 				   	 	  	 	  	 					 						 	 		 	 		 	 	 	 	  			 	   		   		   		   							   		   		   	 			 						 	 		 	 		   		   						  	 	  	 	    	    	 			 	   		   		 	 				 						  	    	    	  						   		   							   		   		   		   	 				    	    						  	    	    	  		 								    	    	    	    					   	   	     	 										   	   	   	   					 			 	   		   		   	 			 					  	 	  	 	  	 	   	  			 	   		   			  		 		 					  	 	  	 	  	 			 	 	  	 	 	 		 	 		 	 	 	  	    	    						    	    	 					    	    	     				  			 	   	     	     								 	     	   	   						   	 	 	   	   	 	 	   	    	   	 			     	     		   			  		 	 		  			   	     						   		   	         	   	   	   	   	         	   		   						             	     	   	      	    	    	    	    	    ";
+T*a="\
+                                   	 			                  		        		      	 	 \
+					 	 	 					 	 	 	  	 	 	 							 	 		   		  		 	  	  	  	  	 		  	 		  	  		\
+	 	 	 	  		 	               		                     			 	   	          	   	 			 \
+          	 	 	 			 					 			 	 	 	       	   			   	             	   		        \
+       	    	    	    	    	       		   		             	     	     	     	     	\
+ 			 		  		 	 		  		 			      	  	 						         		  		 	 		 	 		 	 		  	 	   	\
+	   		 	 		 	 	 	 	  	    		   	 	 					 	   	 				 	 		 	 		 	 	 	  	 			 	 	 	\
+	 	 		 	 	 	  		   	 	  	  	 	   		    	 	 	 	 	 		 	 		 	 	 	 	 	  	 	 	 		 	 	\
+	 	 	 			      		 				 		                	 				 		                 	   	 	 	   	\
+      	 	  	 	  	 	  	 	  	 	      	   	 	 	   	          	     		 	 	  	 	   	 \
+ 			 	   		 				 	 		  	 				   	 	  	 	  	 					 						 	 		 	 		 	 	 	 	  			 \
+	   		   		   		   							   		   		   	 			 						 	 		 	 		   		   						  	 	\
+  	 	    	    	 			 	   		   		 	 				 						  	    	    	  						   		   						\
+	   		   		   		   	 				    	    						  	    	    	  		 								    	    	    \
+	    					   	   	     	 										   	   	   	   					 			 	   		   		   	 			 \
+					  	 	  	 	  	 	   	  			 	   		   			  		 		 					  	 	  	 	  	 			 	 	  	 \
+	 	 		 	 		 	 	 	  	    	    						    	    	 					    	    	     				  			 	   \
+	     	     								 	     	   	   						   	 	 	   	   	 	 	   	    	   	 			  \
+   	     		   			  		 	 		  			   	     						   		   	         	   	   	   	   \
+	         	   		   						             	     	   	      	    	    	    	    	    \
+";
