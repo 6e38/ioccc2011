@@ -46,7 +46,7 @@ else{i=0;o(;(n=C ());                   ){if(n==-1)d(w)l^=l;o(
 )))d(y)o(;(p=_( O,"<"                   "title>"))&&q;){if(!(O
 =_(O,"</title>"))) d(                   y)*O=0;F(" ### ");F(p+
  7);* O++ = 60;}}}y:                     free(B);z :u r?f(f)(
-    stderr ,"err"                           ),r:0;}tA[]="\
+    stderr,"err")                           ,r:0;}t A[]="\
                                    	 			                  		        		      	 	 \
 					 	 	 					 	 	 	  	 	 	 							 	 		   		  		 	  	  	  	  	 		  	 		  	  		\
 	 	 	 	  		 	               		                     			 	   	          	   	 			 \
