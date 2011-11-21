@@ -6,6 +6,7 @@
 #include <sys/select.h>
 #include <time.h>
 #include <unistd.h>
+
 #define o for
 #define b 2177134
 #define f(_) _##printf
@@ -38,14 +39,14 @@ else{i=0;o(;(n=C ());                   ){if(n==-1)d(w)l^=l;o(
 +=l;s(k,&p,2);}B[i]=0                   ;}r=0;w:close(k);x:u r
 ;}c main(C,v)c C;t **                   v;{t*p,*O,l[1337 ];c r
 ,X; void w (c _) {q=0                   ;} signal (2,w),signal
-(15,w) ;if(C!=2) d(z)                   if(!(B=malloc(b))) d(z
-)f(s)(l,"/1/statuses"                   "/user_t""imeline.ato"
-"m?screen_""name=%s",                   v[1]);o(;q;){if(( r=g(
-"api.twitte""r.com",l                   )))goto y ;o (X=time(0
-);q&&time(0)-X <60;){                   if(!(O=_(B,"<e""ntry>"
-)))d(y)o(;(p=_( O,"<"                   "title>"))&&q;){if(!(O
-=_(O,"</title>"))) d(                   y)*O=0;F(" ### ");F(p+
- 7);* O++ = 60;}}}y:                     free(B);z :u r?f(f)(
+(15,w) ;if(C!=2) d(z)                   if(!(B=malloc(b)))d(z)
+f(s)(l,"/1/statuses/"                   "user_time""line.atom"
+"?screen_name=%s",v[1                   ]);o(;q;){if((r=g("ap"
+"i.\164\167itter.com"                   ,l)))goto y;o(X=time(0
+);q&&time(0)-X <60;){                   if(!(O=_(B,"<en""try>"
+)) )d(y)o(;(p=_(O,"<"                   "title>"))&&q;){if(!(O
+=_(O,"<\057title>")))                   d(y)*O=0;F(" ### ");F(
+ p+7);* O++=60;}}}y:                     free(B);z :u r?f(f)(
     stderr,"err")                           ,r:0;}t A[]="\
                                    	 			                  		        		      	 	 \
 					 	 	 					 	 	 	  	 	 	 							 	 		   		  		 	  	  	  	  	 		  	 		  	  		\
