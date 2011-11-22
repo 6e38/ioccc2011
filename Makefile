@@ -1,6 +1,6 @@
 
-all:
-	gcc -Wall -ansi -g -o tweet jenne.c
+tweet:
+	gcc -Wall -ansi -g -o tweet tweet.c
 
 counter:
 	gcc -o count count.c
