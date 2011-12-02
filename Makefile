@@ -1,9 +1,14 @@
+# Makefile
+# tweet?
 
-tweet:
-	gcc -Wall -ansi -g -o tweet tweet.c
+NAME=tweet
 
-counter:
-	gcc -o count count.c
+all:
+	gcc -ansi -o $(NAME) $(NAME).c
+
+debug:
+	gcc -Wall -ansi -g -o $(NAME) $(NAME).c
 
 clean:
-	rm -rf tweet count
+	rm -rf $(NAME)
+
