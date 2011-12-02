@@ -2,15 +2,15 @@
 # Tweet Remarks
 ioccc 2011
 
-## To Make
+### To Make
 
     make all
 
-## To Run
+### To Run
 
     tweet <username>
 
-### Examples:
+#### Examples:
 
     tweet ioccc
     tweet slashdot
@@ -56,12 +56,8 @@ a rather lengthy string that contains tabs and fits nicely in
 ## Bending the Rules
 
 You might notice that my program file is 4086 bytes.  It seems
-awfully close to the limit.  It is.  At first I thought I should
-do something clever to finish off the last 10 bytes but I didn't
-want to be wasteful.
-
-I don't think 4086 bytes is bending the rules and it certainly
-isn't breaking the rules...
+awfully close to the limit.  It is.  I don't think 4086 bytes is
+bending the rules and it certainly isn't breaking the rules...
 
 At the end of the file you will see a string that contains 1600
 characters of whitespace.  If you look closely you'll notice
@@ -73,15 +69,14 @@ ASCII characters above 0x5f from the character map I was still
 consuming far too many bytes.  Then it occurred to me: why not
 create the character map using whitespace?
 
-I don't think a 1600 byte string of whitespace really falls
-within the spirit of the rules but the rules certainly don't
-disallow it.
+I don't think a 1600 byte string of whitespace conforms to the
+spirit of the rules but the rules certainly don't disallow it.
 
 ## Obfuscation
 
 Mostly I copied the style of code I see at work on a daily
-basis.  The techniques I've learned at work have prepared me for
-this contest. ;)
+basis.  The techniques I've learned at work have adequately
+prepared me for this contest.
 
 + I employed a lot of inconsistency in my obfuscation.  I have
   found that some of the most difficult to understand code is
@@ -119,11 +114,11 @@ this contest. ;)
   miserable.
 
 + Various other things hardly worth mentioning: anonymous
-  struct, escaped characters, split strings, magic numbers, and
-  stuff I've probably forgotten.
+  struct, escaped characters, split strings, magic numbers,
+  gotos and stuff I've probably forgotten.
 
 + I didn't use trigraphs.  They seem boring.
 
-+ I didn't use -D compiler directives.  I don't need any help
-  being obscure.
++ I didn't use -D compiler directives.  I wanted all the pieces
+  to be visible in a single file.
 
