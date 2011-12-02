@@ -1,13 +1,13 @@
-#include <netdb.h>
-#include <arpa/inet.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <sys/select.h>
 #include <sys/socket.h>
-#include <time.h>
+#include <arpa/inet.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
+#include <netdb.h>
+#include <stdio.h>
+#include <time.h>
 
 #define o for
 #define b 2177134
