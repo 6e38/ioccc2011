@@ -32,9 +32,9 @@ outputting all of the messages and 60 seconds have not elapsed
 it will simply repeat the messages from its previous request
 without making a new request.
 
-To terminate the program type ctrl-c or send it the TERM signal.
-The program has registered signal handlers for both SIGINT and
-SIGTERM.
+To terminate the program type `ctrl-c` or send it the `TERM`
+signal.  The program has registered signal handlers for both
+`SIGINT` and `SIGTERM`.
 
 This program properly allocates and frees memory.  It handles
 most error conditions.  When the program detects an error it
@@ -43,7 +43,7 @@ value corresponds to the line in the source file where the
 error occurred.
 
 I have compiled this program with -Wall and -ansi on 32 and 64
-bit linux, HPUX and PPC Mac OS X.  It compiles warning free.
+bit Linux, HPUX and PPC Mac OS X.  It compiles warning free.
 Who says you can't write _good_ obfuscated code?
 
 ## Source Code
