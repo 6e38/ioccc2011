@@ -2,6 +2,9 @@
 # Tweet Remarks
 ioccc 2011
 
+NOTE: This no longer works due to changes in API. It did work
+at time of submission.
+
 ### To Make
 
     make all
